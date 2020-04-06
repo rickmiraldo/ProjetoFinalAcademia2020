@@ -14,7 +14,7 @@ namespace ProjetoFinal_API.Services.Interfaces
 
         Task CreateAsync(Client client);
 
-        Task UpdateAsync();
+        Task UpdateAsync(Client client);
 
         Task DeleteAsync();
     }

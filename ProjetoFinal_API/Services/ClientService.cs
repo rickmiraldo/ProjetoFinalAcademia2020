@@ -40,9 +40,10 @@ namespace ProjetoFinal_API.Services
             return await context.Client.Include(x => x.Sale).FirstOrDefaultAsync(x=> x.ClientId == id);
         }
 
-        public async Task UpdateAsync()
+        public async Task UpdateAsync(Client client)
         {
-            throw new NotImplementedException();
+            context.Update(client);
+            await context.SaveChangesAsync();
         }
     }
 }

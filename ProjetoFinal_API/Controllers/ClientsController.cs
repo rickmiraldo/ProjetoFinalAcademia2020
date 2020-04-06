@@ -52,8 +52,15 @@ namespace ProjetoFinal_API.Controllers
 
         // PUT: api/Clients/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> Put(int id, [FromBody] Client client)
         {
+            if (id != client.ClientId)
+            {
+                return BadRequest();
+            }
+
+            await clientService.UpdateAsync(client);
+            return NoContent();
         }
 
         // DELETE: api/ApiWithActions/5
