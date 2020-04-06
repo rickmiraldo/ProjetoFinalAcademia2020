@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using ProjetoFinal_API.Models;
+using ProjetoFinal_API.Services.Interfaces;
+
+namespace ProjetoFinal_API.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class SalesController : ControllerBase
+    {
+        private readonly ISaleService saleService;
+
+        public SalesController(ISaleService saleService)
+        {
+            this.saleService = saleService;
+        }
+
+        // GET: api/Sales
+        [HttpGet]
+        public async Task<IEnumerable<Sale>> GetSale()
+        {
+            return await saleService.GetAllAsync();
+        }
+    }
+}

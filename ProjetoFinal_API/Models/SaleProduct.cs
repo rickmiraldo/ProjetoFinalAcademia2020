@@ -10,7 +10,6 @@ namespace ProjetoFinal_API.Models
         public double UnitPrice { get; set; }
         [JsonIgnore]
         public int SaleId { get; set; }
-        [JsonIgnore]
         public int ProductId { get; set; }
         [JsonIgnore]
         public Product Product { get; set; }
