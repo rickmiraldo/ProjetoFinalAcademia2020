@@ -32,9 +32,10 @@ namespace ProjetoFinal_API.Controllers
 
         // GET: api/Clients/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public async Task<Client> Get(int id)
         {
-            return "value";
+            var client = await clientService.GetByIdAsync(id);
+            return client;
         }
 
         // POST: api/Clients
