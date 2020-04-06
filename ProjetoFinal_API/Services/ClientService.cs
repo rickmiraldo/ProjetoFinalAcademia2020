@@ -24,9 +24,11 @@ namespace ProjetoFinal_API.Services
 
         }
 
-        public async Task DeleteAsync()
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var client = await context.Client.FindAsync(id);
+            context.Remove(client);
+            await context.SaveChangesAsync();
         }
 
         public async Task<List<Client>> GetAllAsync()

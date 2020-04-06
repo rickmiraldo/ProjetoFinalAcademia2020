@@ -65,8 +65,10 @@ namespace ProjetoFinal_API.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            await clientService.DeleteAsync(id);
+            return Ok();
         }
     }
 }
