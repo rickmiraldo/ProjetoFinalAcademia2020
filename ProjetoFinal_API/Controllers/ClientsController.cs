@@ -40,8 +40,14 @@ namespace ProjetoFinal_API.Controllers
 
         // POST: api/Clients
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Create(Client client)
         {
+            if (ModelState.IsValid)
+            {
+                await clientService.CreateAsync(client);
+                return CreatedAtAction(nameof(Get), new { id = client.ClientId }, client);
+            }
+            return BadRequest();
         }
 
         // PUT: api/Clients/5

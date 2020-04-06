@@ -12,7 +12,7 @@ namespace ProjetoFinal_API.Services.Interfaces
 
         Task<Client> GetByIdAsync(int id);
 
-        Task CreateAsync();
+        Task CreateAsync(Client client);
 
         Task UpdateAsync();
 
