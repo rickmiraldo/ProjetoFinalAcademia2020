@@ -37,9 +37,10 @@ namespace ProjetoFinal_API.Services
             return await context.Product.FirstOrDefaultAsync(x => x.ProductId == id);
         }
 
-        public async Task UpdateAsync()
+        public async Task UpdateAsync(Product product)
         {
-            throw new NotImplementedException();
+            context.Update(product);
+            await context.SaveChangesAsync();
         }
     }
 }

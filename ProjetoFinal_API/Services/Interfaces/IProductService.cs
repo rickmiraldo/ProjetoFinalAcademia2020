@@ -14,7 +14,7 @@ namespace ProjetoFinal_API.Services.Interfaces
 
         Task CreateAsync(Product product);
 
-        Task UpdateAsync();
+        Task UpdateAsync(Product product);
 
         Task DeleteAsync();
     }
