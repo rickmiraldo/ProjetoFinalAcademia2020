@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ProjetoFinalAcademia2020.Controllers
+namespace ProjetoFinal_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
