@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace ProjetoFinal_API.Models
@@ -10,6 +11,7 @@ namespace ProjetoFinal_API.Models
         public double UnitPrice { get; set; }
         public int Stock { get; set; }
 
+        [JsonIgnore]
         public ICollection<SaleProduct> SaleProduct { get; set; } = new List<SaleProduct>();
 
         public Product()

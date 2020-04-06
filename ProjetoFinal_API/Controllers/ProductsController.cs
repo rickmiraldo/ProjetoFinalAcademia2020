@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjetoFinal_API.Models;
+using ProjetoFinal_API.Services.Interfaces;
 
 namespace ProjetoFinal_API.Controllers
 {
@@ -13,18 +14,18 @@ namespace ProjetoFinal_API.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly academiaContext _context;
+        private readonly IProductService productService;
 
-        public ProductsController(academiaContext context)
+        public ProductsController(IProductService productService)
         {
-            _context = context;
+            this.productService = productService;
         }
 
         // GET: api/Products
         [HttpGet]
-        public IEnumerable<Product> GetProduct()
+        public async Task<IEnumerable<Product>> GetProduct()
         {
-            return _context.Product;
+            return await productService.GetAllAsync();
         }
 
         // GET: api/Products/5
@@ -36,14 +37,14 @@ namespace ProjetoFinal_API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var product = await _context.Product.FindAsync(id);
+            //var product = await _context.Product.FindAsync(id);
 
-            if (product == null)
-            {
-                return NotFound();
-            }
+            //if (product == null)
+            //{
+            //    return NotFound();
+            //}
 
-            return Ok(product);
+            return Ok();
         }
 
         // PUT: api/Products/5
@@ -60,23 +61,23 @@ namespace ProjetoFinal_API.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(product).State = EntityState.Modified;
+            //_context.Entry(product).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ProductExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            //try
+            //{
+            //    await _context.SaveChangesAsync();
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    if (!ProductExists(id))
+            //    {
+            //        return NotFound();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
 
             return NoContent();
         }
@@ -90,10 +91,11 @@ namespace ProjetoFinal_API.Controllers
                 return BadRequest(ModelState);
             }
 
-            _context.Product.Add(product);
-            await _context.SaveChangesAsync();
+            //_context.Product.Add(product);
+            //await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProduct", new { id = product.ProductId }, product);
+            //return CreatedAtAction("GetProduct", new { id = product.ProductId }, product);
+            return Ok();
         }
 
         // DELETE: api/Products/5
@@ -105,21 +107,22 @@ namespace ProjetoFinal_API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var product = await _context.Product.FindAsync(id);
-            if (product == null)
-            {
-                return NotFound();
-            }
+            //var product = await _context.Product.FindAsync(id);
+            //if (product == null)
+            //{
+            //    return NotFound();
+            //}
 
-            _context.Product.Remove(product);
-            await _context.SaveChangesAsync();
+            //_context.Product.Remove(product);
+            //await _context.SaveChangesAsync();
 
-            return Ok(product);
+            return Ok();
         }
 
         private bool ProductExists(int id)
         {
-            return _context.Product.Any(e => e.ProductId == id);
+            //return _context.Product.Any(e => e.ProductId == id);
+            return true;
         }
     }
 }

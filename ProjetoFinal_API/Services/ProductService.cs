@@ -1,4 +1,5 @@
-﻿using ProjetoFinal_API.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using ProjetoFinal_API.Models;
 using ProjetoFinal_API.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,12 @@ namespace ProjetoFinal_API.Services
 {
     public class ProductService : IProductService
     {
+        private readonly academiaContext context;
+
+        public ProductService(academiaContext context)
+        {
+            this.context = context;
+        }
         public async Task CreateAsync()
         {
             throw new NotImplementedException();
@@ -21,7 +28,7 @@ namespace ProjetoFinal_API.Services
 
         public async Task<List<Product>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await context.Product.ToListAsync();
         }
 
         public async Task<Product> GetByIdAsync()
