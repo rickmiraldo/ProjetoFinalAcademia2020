@@ -13,6 +13,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ProjetoFinal_API.Data;
 using ProjetoFinal_API.Models;
+using ProjetoFinal_API.Services;
+using ProjetoFinal_API.Services.Interfaces;
 
 namespace ProjetoFinal_API
 {
@@ -30,6 +32,9 @@ namespace ProjetoFinal_API
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<academiaContext>(options => options.UseSqlServer("Server=academiaffaltran.database.windows.net;Database=academia;User Id=academiaffaltranuser;Password=Pass@word;"));
+            services.AddScoped<IClientService, ClientService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ISaleService, SaleService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
