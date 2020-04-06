@@ -22,9 +22,11 @@ namespace ProjetoFinal_API.Services
             await context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync()
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var product = await context.Product.FindAsync(id);
+            context.Remove(product);
+            await context.SaveChangesAsync();
         }
 
         public async Task<List<Product>> GetAllAsync()

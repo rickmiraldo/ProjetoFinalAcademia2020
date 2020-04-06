@@ -62,22 +62,9 @@ namespace ProjetoFinal_API.Controllers
 
         // DELETE: api/Products/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProduct([FromRoute] int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            //var product = await _context.Product.FindAsync(id);
-            //if (product == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //_context.Product.Remove(product);
-            //await _context.SaveChangesAsync();
-
+            await productService.DeleteAsync(id);
             return Ok();
         }
 
