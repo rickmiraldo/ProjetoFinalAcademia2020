@@ -12,6 +12,6 @@ namespace ProjetoFinal_API.Services.Interfaces
 
         Task<Sale> GetByIdAsync(int id);
 
-        Task CreateAsync();
+        Task CreateAsync(Sale sale);
     }
 }

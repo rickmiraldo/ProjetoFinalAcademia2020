@@ -17,9 +17,10 @@ namespace ProjetoFinal_API.Services
             this.context = context;
         }
 
-        public async Task CreateAsync()
+        public async Task CreateAsync(Sale sale)
         {
-            throw new NotImplementedException();
+            context.Add(sale);
+            await context.SaveChangesAsync();
         }
 
         public async Task<List<Sale>> GetAllAsync()

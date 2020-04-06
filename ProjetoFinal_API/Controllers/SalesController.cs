@@ -33,5 +33,17 @@ namespace ProjetoFinal_API.Controllers
         {
             return await saleService.GetByIdAsync(id);
         }
+
+        // POST: api/Sales
+        [HttpPost]
+        public async Task<IActionResult> Create(Sale sale)
+        {
+            if (ModelState.IsValid)
+            {
+                await saleService.CreateAsync(sale);
+                return CreatedAtAction(nameof(GetSale), new { id = sale.SaleId }, sale);
+            }
+            return BadRequest();
+        }
     }
 }
