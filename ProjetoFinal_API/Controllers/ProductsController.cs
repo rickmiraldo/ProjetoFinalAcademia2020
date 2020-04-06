@@ -72,18 +72,14 @@ namespace ProjetoFinal_API.Controllers
 
         // POST: api/Products
         [HttpPost]
-        public async Task<IActionResult> PostProduct([FromBody] Product product)
+        public async Task<IActionResult> Create(Product product)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                await productService.CreateAsync(product);
+                return CreatedAtAction(nameof(GetProduct), new { id = product.ProductId }, product);
             }
-
-            //_context.Product.Add(product);
-            //await _context.SaveChangesAsync();
-
-            //return CreatedAtAction("GetProduct", new { id = product.ProductId }, product);
-            return Ok();
+            return BadRequest();
         }
 
         // DELETE: api/Products/5

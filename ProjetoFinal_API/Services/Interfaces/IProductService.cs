@@ -12,7 +12,7 @@ namespace ProjetoFinal_API.Services.Interfaces
 
         Task<Product>GetByIdAsync(int id);
 
-        Task CreateAsync();
+        Task CreateAsync(Product product);
 
         Task UpdateAsync();
 

@@ -16,9 +16,10 @@ namespace ProjetoFinal_API.Services
         {
             this.context = context;
         }
-        public async Task CreateAsync()
+        public async Task CreateAsync(Product product)
         {
-            throw new NotImplementedException();
+            context.Add(product);
+            await context.SaveChangesAsync();
         }
 
         public async Task DeleteAsync()
