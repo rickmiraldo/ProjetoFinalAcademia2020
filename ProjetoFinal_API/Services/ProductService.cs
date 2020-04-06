@@ -31,9 +31,9 @@ namespace ProjetoFinal_API.Services
             return await context.Product.ToListAsync();
         }
 
-        public async Task<Product> GetByIdAsync()
+        public async Task<Product> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await context.Product.FirstOrDefaultAsync(x => x.ProductId == id);
         }
 
         public async Task UpdateAsync()

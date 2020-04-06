@@ -30,21 +30,9 @@ namespace ProjetoFinal_API.Controllers
 
         // GET: api/Products/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetProduct([FromRoute] int id)
+        public async Task<Product> GetProduct([FromRoute] int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            //var product = await _context.Product.FindAsync(id);
-
-            //if (product == null)
-            //{
-            //    return NotFound();
-            //}
-
-            return Ok();
+            return await productService.GetByIdAsync(id);
         }
 
         // PUT: api/Products/5
