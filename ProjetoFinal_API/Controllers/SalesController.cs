@@ -26,5 +26,12 @@ namespace ProjetoFinal_API.Controllers
         {
             return await saleService.GetAllAsync();
         }
+
+        // GET: api/Sales
+        [HttpGet("{id}")]
+        public async Task<Sale> GetSale([FromRoute] int id)
+        {
+            return await saleService.GetByIdAsync(id);
+        }
     }
 }

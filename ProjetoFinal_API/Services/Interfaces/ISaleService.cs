@@ -10,7 +10,7 @@ namespace ProjetoFinal_API.Services.Interfaces
     {
         Task<List<Sale>> GetAllAsync();
 
-        Task<Sale> GetByIdAsync();
+        Task<Sale> GetByIdAsync(int id);
 
         Task CreateAsync();
     }

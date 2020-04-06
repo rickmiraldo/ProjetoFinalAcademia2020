@@ -27,9 +27,9 @@ namespace ProjetoFinal_API.Services
             return await context.Sale.Include(x => x.SaleProduct).ToListAsync();
         }
 
-        public async Task<Sale> GetByIdAsync()
+        public async Task<Sale> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await context.Sale.FirstOrDefaultAsync(x => x.SaleId == id);
         }
     }
 }
