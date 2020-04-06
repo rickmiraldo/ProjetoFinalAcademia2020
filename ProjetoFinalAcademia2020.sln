@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjetoFinal_API", "ProjetoFinal_API\ProjetoFinal_API.csproj", "{63122573-8DC1-4500-965A-590E43BB2922}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjetoFinal_Web", "ProjetoFinal_Web\ProjetoFinal_Web.csproj", "{E326103F-58CF-43FE-A710-DFB643518E71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjetoFinal_Web", "ProjetoFinal_Web\ProjetoFinal_Web.csproj", "{E326103F-58CF-43FE-A710-DFB643518E71}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
