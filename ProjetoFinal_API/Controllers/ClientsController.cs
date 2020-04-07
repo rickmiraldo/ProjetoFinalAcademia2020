@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjetoFinal_API.Models;
+using ProjetoFinal_API.Models.DTOs;
+using ProjetoFinal_API.Services;
 using ProjetoFinal_API.Services.Interfaces;
 
 namespace ProjetoFinal_API.Controllers
@@ -24,10 +26,11 @@ namespace ProjetoFinal_API.Controllers
         
         // GET: api/Clients
         [HttpGet]
-        public async Task<IEnumerable<Client>> Get()
+        public async Task<IEnumerable<ClientDto>> Get()
         {
             var clients = await clientService.GetAllAsync();
-            return clients;
+            
+            return clientService.ConvertToListDto(clients);
         }
 
         // GET: api/Clients/5

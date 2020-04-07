@@ -11,7 +11,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using ProjetoFinal_API.Data;
 using ProjetoFinal_API.Models;
 using ProjetoFinal_API.Services;
 using ProjetoFinal_API.Services.Interfaces;

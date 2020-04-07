@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjetoFinal_API.Models;
+using ProjetoFinal_API.Models.DTOs;
 using ProjetoFinal_API.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,7 @@ namespace ProjetoFinal_API.Services
         public async Task<List<Client>> GetAllAsync()
         {
             // Pode ser necessário remover os includes caso se queira apenas as informações do cliente 
-            return await context.Client.Include(x => x.Sale).ThenInclude(x => x.SaleProduct).ToListAsync();
+            return await context.Client.ToListAsync();
         }
 
         public async Task<Client> GetByIdAsync(int id)
@@ -46,6 +47,29 @@ namespace ProjetoFinal_API.Services
         {
             context.Update(client);
             await context.SaveChangesAsync();
+        }
+
+        public List<ClientDto> ConvertToListDto (List<Client> clients)
+        {
+            List<ClientDto> listDto = new List<ClientDto>();
+            foreach (var client in clients)
+            {
+                listDto.Add(ConvertToDto(client));
+            }
+            return listDto;
+        }
+
+        public ClientDto ConvertToDto(Client client)
+        {
+            return new ClientDto
+            {
+                Id = client.ClientId,
+                NameClient = client.NameClient,
+                BirthDate = client.BirthDate,
+                RegistDate = client.RegistDate,
+                Gender = client.Gender,
+                Mobile = client.Mobile
+            };
         }
     }
 }

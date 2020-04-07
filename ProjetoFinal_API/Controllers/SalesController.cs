@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjetoFinal_API.Models;
+using ProjetoFinal_API.Models.DTOs;
 using ProjetoFinal_API.Services.Interfaces;
 
 namespace ProjetoFinal_API.Controllers
@@ -22,9 +23,11 @@ namespace ProjetoFinal_API.Controllers
 
         // GET: api/Sales
         [HttpGet]
-        public async Task<IEnumerable<Sale>> GetSale()
+        public async Task<IEnumerable<SaleDto>> GetSale()
         {
-            return await saleService.GetAllAsync();
+            var sales = await saleService.GetAllAsync();
+
+            return saleService.ConvertToListDto(sales);
         }
 
         // GET: api/Sales
