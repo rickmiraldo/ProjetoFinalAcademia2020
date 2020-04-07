@@ -6,10 +6,6 @@ namespace ProjetoFinal_API.Models
 {
     public partial class Sale
     {
-        public Sale()
-        {
-            SaleProduct = new HashSet<SaleProduct>();
-        }
 
         public int SaleId { get; set; }
         public DateTime SaleDate { get; set; }
@@ -19,6 +15,6 @@ namespace ProjetoFinal_API.Models
         public int? ClientId { get; set; }
         [JsonIgnore]
         public Client Client { get; set; }
-        public ICollection<SaleProduct> SaleProduct { get; set; }
+        public ICollection<SaleProduct> SaleProduct { get; set; } = new List<SaleProduct>();
     }
 }
