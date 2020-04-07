@@ -12,7 +12,7 @@ namespace ProjetoFinal_Web.Services.Interfaces
 
         Task<Product> GetByIdAsync(int id);
 
-        Task CreateAsync(Product product);
+        Task<Product> CreateAsync(Product product);
 
         Task UpdateAsync(Product product);
 

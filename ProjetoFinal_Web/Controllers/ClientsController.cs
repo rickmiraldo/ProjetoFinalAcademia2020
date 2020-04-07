@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProjetoFinal_Web.Models;
 using ProjetoFinal_Web.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -35,5 +36,22 @@ namespace ProjetoFinal_Web.Controllers
             }
             return View(result);
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Create(Client client)
+        {
+            if (ModelState.IsValid)
+            {
+                var response= await clientService.CreateAsync(client);
+                if(response == null)
+                {
+                  return BadRequest();
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View();
+        }
+
     }
 }

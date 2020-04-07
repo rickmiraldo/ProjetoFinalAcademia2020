@@ -13,10 +13,12 @@ namespace ProjetoFinal_API.Services.Interfaces
 
         Task<Sale> GetByIdAsync(int id);
 
-        Task CreateAsync(Sale sale);
+        Task<Sale> CreateAsync(Sale sale);
 
         List<SaleDto> ConvertToListDto(List<Sale> sales);
 
         SaleDto ConvertToDto(Sale sale);
+
+        Task<Sale> ConvertFromDtoAsync(SaleDto saleDto);
     }
 }

@@ -18,10 +18,17 @@ namespace ProjetoFinal_API.Services
             this.context = context;
         }
 
-        public async Task CreateAsync(Sale sale)
+        public async Task<Sale> CreateAsync(Sale sale)
         {
             context.Add(sale);
             await context.SaveChangesAsync();
+            return sale;
+        }
+
+        public async Task<Sale> ConvertFromDtoAsync (SaleDto saleDto)
+        {
+            var client = await context.Client.Where(x => x.NameClient== saleDto.ClientName).FirstOrDefaultAsync();
+            return new Sale{ SaleDate= saleDto.SaleDate, SaleProduct= saleDto.SaleProduct, Client= client, ClientId= client.ClientId, TotalValue= saleDto.TotalValue};
         }
 
         public async Task<List<Sale>> GetAllAsync()

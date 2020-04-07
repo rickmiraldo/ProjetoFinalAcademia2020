@@ -11,9 +11,20 @@ namespace ProjetoFinal_Web.Services
 {
     public class ProductService : IProductService
     {
-        public Task CreateAsync(Product product)
+        public async Task<Product> CreateAsync(Product product)
         {
-            throw new NotImplementedException();
+            Product createdProduct = new Product();
+            using (var httpClient = new HttpClient())
+            {
+                StringContent content = new StringContent(JsonConvert.SerializeObject(product), System.Text.Encoding.UTF8, "application/json");
+
+                using (var response = await httpClient.PostAsync("https://localhost:44343/api/products/", content))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    createdProduct = JsonConvert.DeserializeObject<Product>(apiResponse);
+                }
+            }
+            return createdProduct;
         }
 
         public Task DeleteAsync(int id)

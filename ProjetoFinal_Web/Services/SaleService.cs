@@ -11,9 +11,20 @@ namespace ProjetoFinal_Web.Services
 {
     public class SaleService : ISaleService
     {
-        public Task CreateAsync(Sale sale)
+        public async Task<Sale> CreateAsync(Sale sale)
         {
-            throw new NotImplementedException();
+            Sale createdSale = new Sale();
+            using (var httpClient = new HttpClient())
+            {
+                StringContent content = new StringContent(JsonConvert.SerializeObject(sale), System.Text.Encoding.UTF8, "application/json");
+
+                using (var response = await httpClient.PostAsync("https://localhost:44343/api/sales/", content))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    createdSale = JsonConvert.DeserializeObject<Sale>(apiResponse);
+                }
+            }
+            return createdSale;
         }
 
         public async Task<List<Sale>> GetAllAsync()

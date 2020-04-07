@@ -33,7 +33,7 @@ namespace ProjetoFinal_API.Controllers
 
         // GET: api/Sales
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetSale([FromRoute] int id)
+        public async Task<IActionResult> GetSaleById([FromRoute] int id)
         { 
 
             var result = await saleService.GetByIdAsync(id);
@@ -46,12 +46,15 @@ namespace ProjetoFinal_API.Controllers
 
         // POST: api/Sales
         [HttpPost]
-        public async Task<IActionResult> Create(Sale sale)
+        public async Task<IActionResult> Create(SaleDto saleDto)
         {
             if (ModelState.IsValid)
             {
-                await saleService.CreateAsync(sale);
-                return CreatedAtAction(nameof(GetSale), new { id = sale.SaleId }, sale);
+                var sale = await saleService.ConvertFromDtoAsync(saleDto);
+                var created = await saleService.CreateAsync(sale);
+
+                var Dto = saleService.ConvertToDto(created);
+                return CreatedAtAction(nameof(GetSaleById), new { id = Dto.SaleId }, Dto);
             }
             return BadRequest();
         }

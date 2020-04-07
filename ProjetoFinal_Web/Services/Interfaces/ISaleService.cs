@@ -12,6 +12,6 @@ namespace ProjetoFinal_Web.Services.Interfaces
 
         Task<Sale> GetByIdAsync(int id);
 
-        Task CreateAsync(Sale sale);
+        Task<Sale> CreateAsync(Sale sale);
     }
 }

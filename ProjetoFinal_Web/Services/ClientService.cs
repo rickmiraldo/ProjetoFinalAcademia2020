@@ -11,9 +11,20 @@ namespace ProjetoFinal_Web.Services
 {
     public class ClientService : IClientService
     {
-        public Task CreateAsync(Client client)
+        public async Task<Client> CreateAsync(Client client)
         {
-            throw new NotImplementedException();
+            Client createdClient = new Client();
+            using (var httpClient = new HttpClient())
+            {
+                StringContent content = new StringContent(JsonConvert.SerializeObject(client), System.Text.Encoding.UTF8, "application/json");
+
+                using (var response = await httpClient.PostAsync("https://localhost:44343/api/clients/", content))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    createdClient = JsonConvert.DeserializeObject<Client>(apiResponse);
+                }
+            }
+            return createdClient;
         }
 
         public Task DeleteAsync(int id)
