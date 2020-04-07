@@ -27,9 +27,16 @@ namespace ProjetoFinal_Web.Services
             return createdProduct;
         }
 
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            using (var httpClient = new HttpClient())
+            {
+
+                using (var response = await httpClient.DeleteAsync("https://localhost:44343/api/products/" + id))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                }
+            }
         }
 
         public async Task<List<Product>> GetAllAsync()

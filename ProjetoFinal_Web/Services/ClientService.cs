@@ -27,9 +27,16 @@ namespace ProjetoFinal_Web.Services
             return createdClient;
         }
 
-        public Task DeleteAsync(int id)
-        {
-            throw new NotImplementedException();
+        public async Task DeleteAsync(int id)
+        {  
+            using (var httpClient = new HttpClient())
+            {
+               
+                using (var response = await httpClient.DeleteAsync("https://localhost:44343/api/clients/" + id))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                }
+            }
         }
 
         public async Task<List<Client>> GetAllAsync()

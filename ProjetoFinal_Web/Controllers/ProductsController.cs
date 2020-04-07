@@ -51,5 +51,12 @@ namespace ProjetoFinal_Web.Controllers
             }
             return View();
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await productService.DeleteAsync(id);
+            return RedirectToAction("Index");
+        }
     }
 }
