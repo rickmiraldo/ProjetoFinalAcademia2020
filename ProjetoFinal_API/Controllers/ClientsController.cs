@@ -23,22 +23,26 @@ namespace ProjetoFinal_API.Controllers
             this.clientService = clientService;
         }
 
-        
+
         // GET: api/Clients
         [HttpGet]
         public async Task<IEnumerable<ClientDto>> Get()
         {
             var clients = await clientService.GetAllAsync();
-            
+
             return clientService.ConvertToListDto(clients);
         }
 
         // GET: api/Clients/5
         [HttpGet("{id}", Name = "Get")]
-        public async Task<Client> Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
             var client = await clientService.GetByIdAsync(id);
-            return client;
+            if (client == null)
+            {
+                return BadRequest(new { Message = "The requested client does not exist." });
+            }
+            return Ok(client);
         }
 
         // POST: api/Clients
@@ -59,19 +63,32 @@ namespace ProjetoFinal_API.Controllers
         {
             if (id != client.ClientId)
             {
-                return BadRequest();
+                return BadRequest(new { Message = "Ids don't match." });
             }
 
-            await clientService.UpdateAsync(client);
-            return NoContent();
+            try
+            {
+                await clientService.UpdateAsync(client);
+                return NoContent();
+            }
+            catch (ApplicationException e)
+            {
+                return BadRequest(new { e.Message });
+            }
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
+            var c = await clientService.GetByIdAsync(id);
+            if (c == null)
+            {
+                return BadRequest(new { Message = "Client does not exist." });
+            }
             await clientService.DeleteAsync(id);
-            return Ok();
+
+            return Ok(c);
         }
     }
 }
