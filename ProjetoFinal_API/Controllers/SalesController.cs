@@ -28,13 +28,20 @@ namespace ProjetoFinal_API.Controllers
             var sales = await saleService.GetAllAsync();
 
             return saleService.ConvertToListDto(sales);
+
         }
 
         // GET: api/Sales
         [HttpGet("{id}")]
-        public async Task<Sale> GetSale([FromRoute] int id)
-        {
-            return await saleService.GetByIdAsync(id);
+        public async Task<IActionResult> GetSale([FromRoute] int id)
+        { 
+
+            var result = await saleService.GetByIdAsync(id);
+            if (result == null)
+            {
+                return BadRequest(new { Message = "The requested sale does not exist." });
+            }
+            return Ok(result);
         }
 
         // POST: api/Sales
