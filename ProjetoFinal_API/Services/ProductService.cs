@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjetoFinal_API.Models;
+using ProjetoFinal_API.Services.Exceptions;
 using ProjetoFinal_API.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -24,9 +25,16 @@ namespace ProjetoFinal_API.Services
 
         public async Task DeleteAsync(int id)
         {
-            var product = await context.Product.FindAsync(id);
-            context.Remove(product);
-            await context.SaveChangesAsync();
+            try
+            {
+                var product = await context.Product.FindAsync(id);
+                context.Remove(product);
+                await context.SaveChangesAsync();
+            }
+            catch(DbUpdateException e)
+            {
+                throw new IntegrityException("Can't delete product because it has sales associated.");
+            }
         }
 
         public async Task<List<Product>> GetAllAsync()

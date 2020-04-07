@@ -30,9 +30,14 @@ namespace ProjetoFinal_API.Controllers
 
         // GET: api/Products/5
         [HttpGet("{id}")]
-        public async Task<Product> GetProduct([FromRoute] int id)
+        public async Task<IActionResult> GetProduct([FromRoute] int id)
         {
-            return await productService.GetByIdAsync(id);
+            var result = await productService.GetByIdAsync(id);
+            if (result == null)
+            {
+                return BadRequest(new { Message = "The requested product does not exist." });
+            }
+            return Ok(result);
         }
 
         // PUT: api/Products/5
@@ -41,11 +46,18 @@ namespace ProjetoFinal_API.Controllers
         {
             if (id != product.ProductId)
             {
-                return BadRequest();
+                return BadRequest(new { Message = "Ids don't match." });
             }
-
-            await productService.UpdateAsync(product);
-            return NoContent();
+            try
+            {
+                await productService.UpdateAsync(product);
+                return NoContent();
+            }
+            catch(ApplicationException e)
+            {
+                return BadRequest(new { e.Message });
+            }
+            
         }
 
         // POST: api/Products
@@ -64,14 +76,13 @@ namespace ProjetoFinal_API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
+            var p = await productService.GetByIdAsync(id);
+            if (p == null)
+            {
+                return BadRequest(new { Message = "Product does not exist." });
+            }
             await productService.DeleteAsync(id);
-            return Ok();
-        }
-
-        private bool ProductExists(int id)
-        {
-            //return _context.Product.Any(e => e.ProductId == id);
-            return true;
+            return Ok(p);
         }
     }
 }
