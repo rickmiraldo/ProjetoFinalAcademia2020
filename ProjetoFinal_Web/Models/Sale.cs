@@ -10,7 +10,7 @@ namespace ProjetoFinal_Web.Models
         public int SaleId { get; set; }
         public DateTime SaleDate { get; set; }
         public double TotalValue { get; set; }
-        public int? ClientId { get; set; }
+        public string ClientName { get; set; }
         public ICollection<SaleProduct> SaleProduct { get; set; }
     }
 }

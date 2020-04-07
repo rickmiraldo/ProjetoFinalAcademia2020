@@ -1,8 +1,10 @@
-﻿using ProjetoFinal_Web.Models;
+﻿using Newtonsoft.Json;
+using ProjetoFinal_Web.Models;
 using ProjetoFinal_Web.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace ProjetoFinal_Web.Services
@@ -19,9 +21,19 @@ namespace ProjetoFinal_Web.Services
             throw new NotImplementedException();
         }
 
-        public Task<List<Product>> GetAllAsync()
+        public async Task<List<Product>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            List<Product> products = new List<Product>();
+
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync("https://localhost:44343/api/products/"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    products = JsonConvert.DeserializeObject<List<Product>>(apiResponse);
+                }
+            }
+            return products;
         }
 
         public Task<Product> GetByIdAsync(int id)

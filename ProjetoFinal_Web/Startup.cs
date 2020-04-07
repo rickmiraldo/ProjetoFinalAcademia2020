@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ProjetoFinal_Web.Services;
+using ProjetoFinal_Web.Services.Interfaces;
 
 namespace ProjetoFinal_Web
 {
@@ -33,6 +35,9 @@ namespace ProjetoFinal_Web
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddScoped<IClientService, ClientService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ISaleService, SaleService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
