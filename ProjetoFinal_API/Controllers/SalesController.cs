@@ -41,7 +41,7 @@ namespace ProjetoFinal_API.Controllers
             {
                 return BadRequest(new { Message = "The requested sale does not exist." });
             }
-            return Ok(result);
+            return Ok(saleService.ConvertToDto(result));
         }
 
         // POST: api/Sales

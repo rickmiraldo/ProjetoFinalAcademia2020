@@ -7,7 +7,7 @@ namespace ProjetoFinal_Web.Models
 {
     public class Client
     {
-        public int Id { get; set; }
+        public int ClientId { get; set; }
         public string NameClient { get; set; }
         public DateTime BirthDate { get; set; }
         public DateTime RegistDate { get; set; }

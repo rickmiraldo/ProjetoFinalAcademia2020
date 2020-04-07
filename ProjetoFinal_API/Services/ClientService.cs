@@ -63,7 +63,7 @@ namespace ProjetoFinal_API.Services
         {
             return new ClientDto
             {
-                Id = client.ClientId,
+                ClientId = client.ClientId,
                 NameClient = client.NameClient,
                 BirthDate = client.BirthDate,
                 RegistDate = client.RegistDate,

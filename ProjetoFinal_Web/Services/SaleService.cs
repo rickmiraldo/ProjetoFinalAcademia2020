@@ -31,9 +31,19 @@ namespace ProjetoFinal_Web.Services
             }
         }
 
-        public Task<Sale> GetByIdAsync(int id)
+        public async Task<Sale> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            Sale sale = new Sale();
+
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync("https://localhost:44343/api/sales/" + id))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    sale = JsonConvert.DeserializeObject<Sale>(apiResponse);
+                }
+            }
+            return sale;
         }
     }
 }

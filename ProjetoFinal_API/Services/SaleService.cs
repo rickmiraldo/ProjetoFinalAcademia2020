@@ -31,7 +31,7 @@ namespace ProjetoFinal_API.Services
 
         public async Task<Sale> GetByIdAsync(int id)
         {
-            return await context.Sale.FirstOrDefaultAsync(x => x.SaleId == id);
+            return await context.Sale.Include(x => x.Client).Include(x => x.SaleProduct).FirstOrDefaultAsync(x => x.SaleId == id);
         }
 
         public List<SaleDto> ConvertToListDto(List<Sale> sales)

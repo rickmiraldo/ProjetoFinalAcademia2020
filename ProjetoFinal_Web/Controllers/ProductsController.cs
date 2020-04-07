@@ -21,5 +21,19 @@ namespace ProjetoFinal_Web.Controllers
             var result = await productService.GetAllAsync();
             return View(result);
         }
+
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return View();
+            }
+            var result = await productService.GetByIdAsync(id.Value);
+            if (result == null)
+            {
+                return View();
+            }
+            return View(result);
+        }
     }
 }

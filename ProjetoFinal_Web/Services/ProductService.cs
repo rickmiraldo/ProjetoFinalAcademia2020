@@ -36,9 +36,19 @@ namespace ProjetoFinal_Web.Services
             return products;
         }
 
-        public Task<Product> GetByIdAsync(int id)
+        public async Task<Product> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            Product product = new Product();
+
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync("https://localhost:44343/api/products/" + id))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    product = JsonConvert.DeserializeObject<Product>(apiResponse);
+                }
+            }
+            return product;
         }
 
         public Task UpdateAsync(Product product)

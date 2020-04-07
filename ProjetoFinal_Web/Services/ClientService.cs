@@ -36,9 +36,19 @@ namespace ProjetoFinal_Web.Services
             return clients;
         }
 
-        public Task<Client> GetByIdAsync(int id)
+        public async Task<Client> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            Client client = new Client();
+
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync("https://localhost:44343/api/clients/" + id))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    client = JsonConvert.DeserializeObject<Client>(apiResponse);
+                }
+            }
+            return client;
         }
 
         public Task UpdateAsync(Client client)
