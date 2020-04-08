@@ -59,6 +59,27 @@ namespace ProjetoFinal_Web.Controllers
             return RedirectToAction("Index");
         }
 
+
+        [HttpGet]
+        public async Task<IActionResult> Update(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var product = await productService.GetByIdAsync((int)id);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
+        }
+
+        [HttpPost, ActionName("Update")]
+        public async Task<IActionResult> Update(int id, Product product)
         // RETURNS DELETE PAGE
         public async Task<IActionResult> Delete(int? id)
         {
