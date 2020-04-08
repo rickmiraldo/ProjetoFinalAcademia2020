@@ -28,10 +28,10 @@ namespace ProjetoFinal_Web.Services
         }
 
         public async Task DeleteAsync(int id)
-        {  
+        {
             using (var httpClient = new HttpClient())
             {
-               
+
                 using (var response = await httpClient.DeleteAsync("https://localhost:44343/api/clients/" + id))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
@@ -69,9 +69,26 @@ namespace ProjetoFinal_Web.Services
             return client;
         }
 
-        public Task UpdateAsync(Client client)
+        public async Task<bool> UpdateAsync(Client client)
         {
-            throw new NotImplementedException();
+            bool result = false;
+
+            using (var httpClient = new HttpClient())
+            {
+                StringContent content = new StringContent(JsonConvert.SerializeObject(client), System.Text.Encoding.UTF8, "application/json");
+
+                using (var response = await httpClient.PutAsync("https://localhost:44343/api/clients/" + client.ClientId, content))
+                {
+                    var statusCode = response.StatusCode;
+
+                    if (statusCode == System.Net.HttpStatusCode.NoContent)
+                    {
+                        result = true;
+                    }
+                }
+            }
+
+            return result;
         }
     }
 }

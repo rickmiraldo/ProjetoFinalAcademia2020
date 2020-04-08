@@ -60,5 +60,18 @@ namespace ProjetoFinal_Web.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPut]
+        public async Task<IActionResult> Update(int id, [FromBody]Client client)
+        {
+            if (client.ClientId != id)
+            {
+                return BadRequest();
+            }
+
+            await clientService.UpdateAsync(client);
+
+            return RedirectToAction("Index");
+        }
+
     }
 }

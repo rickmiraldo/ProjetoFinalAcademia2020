@@ -14,7 +14,7 @@ namespace ProjetoFinal_Web.Services.Interfaces
 
         Task<Client> CreateAsync(Client client);
 
-        Task UpdateAsync(Client client);
+        Task<bool> UpdateAsync(Client client);
 
         Task DeleteAsync(int id);
 

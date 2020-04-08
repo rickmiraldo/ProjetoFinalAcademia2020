@@ -69,9 +69,26 @@ namespace ProjetoFinal_Web.Services
             return product;
         }
 
-        public Task UpdateAsync(Product product)
+        public async Task<bool> UpdateAsync(Product product)
         {
-            throw new NotImplementedException();
+            bool result = false;
+
+            using (var httpClient = new HttpClient())
+            {
+                StringContent content = new StringContent(JsonConvert.SerializeObject(product), System.Text.Encoding.UTF8, "application/json");
+
+                using (var response = await httpClient.PutAsync("https://localhost:44343/api/products/" + product.ProductId, content))
+                {
+                    var statusCode = response.StatusCode;
+
+                    if (statusCode == System.Net.HttpStatusCode.NoContent)
+                    {
+                        result = true;
+                    }
+                }
+            }
+
+            return result;
         }
     }
 }

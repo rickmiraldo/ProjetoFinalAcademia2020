@@ -58,5 +58,18 @@ namespace ProjetoFinal_Web.Controllers
             await productService.DeleteAsync(id);
             return RedirectToAction("Index");
         }
+
+        [HttpPut]
+        public async Task<IActionResult> Update(int id, [FromBody]Product product)
+        {
+            if (product.ProductId != id)
+            {
+                return BadRequest();
+            }
+
+            await productService.UpdateAsync(product);
+
+            return RedirectToAction("Index");
+        }
     }
 }

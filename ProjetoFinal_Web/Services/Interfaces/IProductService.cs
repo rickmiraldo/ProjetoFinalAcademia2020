@@ -14,7 +14,7 @@ namespace ProjetoFinal_Web.Services.Interfaces
 
         Task<Product> CreateAsync(Product product);
 
-        Task UpdateAsync(Product product);
+        Task<bool> UpdateAsync(Product product);
 
         Task DeleteAsync(int id);
     }
