@@ -53,9 +53,19 @@ namespace ProjetoFinal_API.Services
 
         public SaleDto ConvertToDto(Sale sale)
         {
+            string nameClient = "";
+            if (sale.Client == null)
+            {
+                nameClient = "Unknown";
+            }
+            else
+            {
+                nameClient = sale.Client.NameClient;
+            }
+
             return new SaleDto
             {
-                ClientName = sale.Client.NameClient,
+                ClientName = nameClient,
                 SaleDate = sale.SaleDate,
                 SaleId = sale.SaleId,
                 TotalValue = sale.TotalValue,

@@ -61,6 +61,7 @@ namespace ProjetoFinal_API.Services
 
         public ClientDto ConvertToDto(Client client)
         {
+            
             return new ClientDto
             {
                 ClientId = client.ClientId,
