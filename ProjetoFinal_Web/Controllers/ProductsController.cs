@@ -78,8 +78,7 @@ namespace ProjetoFinal_Web.Controllers
             return View(product);
         }
 
-        [HttpPost, ActionName("Update")]
-        public async Task<IActionResult> Update(int id, Product product)
+        
         // RETURNS DELETE PAGE
         public async Task<IActionResult> Delete(int? id)
         {
@@ -97,8 +96,8 @@ namespace ProjetoFinal_Web.Controllers
             return View(product);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Update(int id, [FromBody]Product product)
+        [HttpPost, ActionName("Update")]
+        public async Task<IActionResult> Update(int id, Product product)      
         {
             if (product.ProductId != id)
             {
