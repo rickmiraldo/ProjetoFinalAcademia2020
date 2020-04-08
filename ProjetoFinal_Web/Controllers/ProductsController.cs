@@ -37,6 +37,13 @@ namespace ProjetoFinal_Web.Controllers
             return View(result);
         }
 
+
+        public async Task<IActionResult> Create()
+        {
+            return View();
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> Create(Product product)
         {
