@@ -57,11 +57,28 @@ namespace ProjetoFinal_Web.Controllers
             return View();
         }
 
-        [HttpDelete]
+        [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> Delete(int id)
         {
             await clientService.DeleteAsync(id);
             return RedirectToAction("Index");
+        }
+
+        // RETURNS DELETE PAGE
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var client = await clientService.GetByIdAsync(id.Value);
+
+            if (client == null)
+            {
+                return NotFound();
+            }
+            return View(client);
         }
 
         [HttpPut]
