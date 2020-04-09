@@ -8,7 +8,7 @@ namespace ProjetoFinal_API.Models
     {
 
         public int SaleId { get; set; }
-        public DateTime SaleDate { get; set; }
+        public DateTime SaleDate { get; set; } = DateTime.Now;
         public double TotalValue { get; set; }
 
         [JsonIgnore]
