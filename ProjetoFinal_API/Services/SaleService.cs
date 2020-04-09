@@ -30,6 +30,7 @@ namespace ProjetoFinal_API.Services
                 }
             }
             
+
             context.Add(sale);
             await context.SaveChangesAsync();
 
