@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using ProjetoFinal_Web.Models;
 using ProjetoFinal_Web.Services.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -55,6 +54,22 @@ namespace ProjetoFinal_Web.Services
                 }
             }
             return sale;
+        }
+
+        public List<Product> GetProductsForSale(Sale sale, List<Product> allProducts)
+        {
+            var productsList = new List<Product>();
+            for (int i = 0; i < allProducts.Count; i++)
+            {
+                for (int j = 0; j < sale.SaleProduct.Count; j++)
+                {
+                    if (allProducts.ElementAt(i).ProductId == sale.SaleProduct.ElementAt(j).ProductId)
+                    {
+                        productsList.Add(allProducts.ElementAt(i));
+                    }
+                }
+            }
+            return productsList;
         }
     }
 }

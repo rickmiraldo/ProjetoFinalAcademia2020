@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjetoFinal_Web.Models;
+using ProjetoFinal_Web.Models.ViewModels;
 using ProjetoFinal_Web.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,12 @@ namespace ProjetoFinal_Web.Controllers
     public class SalesController : Controller
     {
         private readonly ISaleService saleService;
+        private readonly IProductService productService;
 
-        public SalesController(ISaleService saleService)
+        public SalesController(ISaleService saleService, IProductService productService)
         {
             this.saleService = saleService;
+            this.productService = productService;
         }
 
         public async Task<IActionResult> Index()
@@ -29,12 +32,19 @@ namespace ProjetoFinal_Web.Controllers
             {
                 return View();
             }
-            var result = await saleService.GetByIdAsync(id.Value);
-            if (result == null)
+            var sale = await saleService.GetByIdAsync(id.Value);
+            if (sale == null)
             {
                 return View();
             }
-            return View(result);
+            var products = await productService.GetAllAsync();
+            var saleProducts = saleService.GetProductsForSale(sale, products);
+
+            var salesWithProductsViewModel = new SalesWithProductsViewModel { 
+                Sale = sale,
+                Products = saleProducts
+            };
+            return View(salesWithProductsViewModel);
         }
 
         [HttpPost]
