@@ -1,0 +1,60 @@
+﻿@model ProjetoFinal_Web.Models.ViewModels.SalesWithProductsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Sale</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Sale.ClientName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Sale.ClientName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Sale.SaleDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Sale.SaleDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Sale.TotalValue)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Sale.TotalValue)
+        </dd>
+    </dl>
+    <h5>Products for this sale:</h5>
+    <dl class="dl-horizontal">
+        @for (int i = 0; i < Model.Products.Count; i++)
+        {
+            <dt>
+                @Html.DisplayNameFor(saleProduct => Model.Products[i].ProductName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(saleProduct => Model.Products[i].ProductName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(saleProduct => Model.Sale.SaleProduct.ElementAt(i).Quantity)
+            </dt>
+            <dd>
+                @Html.DisplayFor(saleProduct => Model.Sale.SaleProduct.ElementAt(i).Quantity)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(saleProduct => Model.Sale.SaleProduct.ElementAt(i).UnitPrice)
+            </dt>
+            <dd>
+                @Html.DisplayFor(saleProduct => Model.Sale.SaleProduct.ElementAt(i).UnitPrice)
+            </dd>
+            <br />
+        }
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
