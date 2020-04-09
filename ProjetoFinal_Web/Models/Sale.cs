@@ -14,6 +14,8 @@ namespace ProjetoFinal_Web.Models
         public DateTime SaleDate { get; set; } = DateTime.Now;
 
         [Display(Name = "Total Value" )]
+
+        [Display(Name = "Total Value")]
         public double TotalValue { get; set; }
 
         [Display(Name = "Client Name")]
