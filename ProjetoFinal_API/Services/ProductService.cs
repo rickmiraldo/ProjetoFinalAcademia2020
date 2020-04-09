@@ -52,5 +52,13 @@ namespace ProjetoFinal_API.Services
             context.Update(product);
             await context.SaveChangesAsync();
         }
+
+        public async Task DecreaseStock(int productId, int quantity) 
+        {
+            var product = await GetByIdAsync(productId);
+            product.Stock -= quantity;
+
+            await UpdateAsync(product);
+        }
     }
 }

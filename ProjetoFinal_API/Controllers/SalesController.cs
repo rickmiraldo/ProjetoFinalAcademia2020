@@ -15,10 +15,12 @@ namespace ProjetoFinal_API.Controllers
     public class SalesController : ControllerBase
     {
         private readonly ISaleService saleService;
+        private readonly IProductService productService;
 
-        public SalesController(ISaleService saleService)
+        public SalesController(ISaleService saleService, IProductService productService)
         {
             this.saleService = saleService;
+            this.productService = productService;
         }
 
         // GET: api/Sales
@@ -50,11 +52,25 @@ namespace ProjetoFinal_API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var sale = await saleService.ConvertFromDtoAsync(saleDto);
-                var created = await saleService.CreateAsync(sale);
+                try
+                {
+                    var sale = await saleService.ConvertFromDtoAsync(saleDto);
 
-                var Dto = saleService.ConvertToDto(created);
-                return CreatedAtAction(nameof(GetSaleById), new { id = Dto.SaleId }, Dto);
+                    var created = await saleService.CreateAsync(sale);
+                    foreach (var saleProduct in sale.SaleProduct)
+                    {
+                        await productService.DecreaseStock(saleProduct.ProductId, saleProduct.Quantity);
+                    }
+
+                    var Dto = saleService.ConvertToDto(created);
+                    return CreatedAtAction(nameof(GetSaleById), new { id = Dto.SaleId }, Dto);
+                }
+                catch (Exception)
+                {
+
+                    return BadRequest();
+                }
+              
             }
             return BadRequest();
         }

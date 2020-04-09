@@ -20,8 +20,19 @@ namespace ProjetoFinal_API.Services
 
         public async Task<Sale> CreateAsync(Sale sale)
         {
+            int stock = 0;
+            foreach (var saleProduct in sale.SaleProduct)
+            {
+               stock = context.Product.Where(p => p.ProductId == saleProduct.ProductId).Select(p => p.Stock).First();
+                if (stock == 0 || saleProduct.Quantity > stock)
+                {
+                    throw new Exception("There is no stock for this product.");
+                }
+            }
+            
             context.Add(sale);
             await context.SaveChangesAsync();
+
             return sale;
         }
 
