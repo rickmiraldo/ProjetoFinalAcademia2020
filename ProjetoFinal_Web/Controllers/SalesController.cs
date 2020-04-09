@@ -70,7 +70,11 @@ namespace ProjetoFinal_Web.Controllers
                 foreach (var saleProduct in saleFormViewModel.SaleProducts)
                 {
                     saleProductList.Add(saleProduct);
-                    totalValue += saleProduct.Quantity * saleProduct.UnitPrice;
+
+                    var getProduct = await productService.GetByIdAsync(saleProduct.ProductId);
+                    var unitPrice = getProduct.UnitPrice;
+
+                    totalValue += saleProduct.Quantity * unitPrice;
                 }
 
                 Sale sale = new Sale()
