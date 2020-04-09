@@ -10,7 +10,7 @@ namespace ProjetoFinal_API.Models
         public int ClientId { get; set; }
         public string NameClient { get; set; }
         public DateTime BirthDate { get; set; }
-        public DateTime RegistDate { get; set; }
+        public DateTime RegistDate { get; set; } = DateTime.Now;
         public string Gender { get; set; }
         public int? Mobile { get; set; }
 
